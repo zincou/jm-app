@@ -187,6 +187,90 @@ export const htmlCourse = {
                 { type: 'text', question: 'Quel attribut du <label> doit correspondre à l’id du champ ?', correctAnswer: 'for' },
               ],
             },
+            {
+              id: 'c5-s1-l2',
+              title: 'Textarea, select et validation HTML5',
+              content: content([
+                para('<code>&lt;textarea id="msg" name="msg" rows="4"&gt;&lt;/textarea&gt;</code> pour du texte multiligne. <code>&lt;select name="ville"&gt;</code> avec <code>&lt;option value="paris"&gt;Paris&lt;/option&gt;</code>. Validation native : <code>required</code>, <code>minlength</code>, <code>maxlength</code>, <code>pattern</code>, <code>type="email"</code>, <code>min</code>/<code>max</code> pour les nombres. L’attribut <code>novalidate</code> sur le form désactive la validation pour gérer en JS.'),
+                code('<textarea id="msg" name="msg" required minlength="10"></textarea>\n<select name="ville">\n  <option value="">Choisir</option>\n  <option value="paris">Paris</option>\n</select>\n<input type="email" required>', 'html'),
+              ]),
+              exercises: [
+                { type: 'qcm', question: 'Quel attribut rend un champ obligatoire en HTML5 ?', options: ['mandatory', 'required', 'validate'], correctIndex: 1 },
+                { type: 'text', question: 'Quelle balise utilise-t-on pour une liste déroulante de choix ?', correctAnswer: 'select' },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: '6',
+      title: 'Accessibilité et ARIA',
+      subChapters: [
+        {
+          id: '1',
+          title: 'Landmarks et hiérarchie',
+          lessons: [
+            {
+              id: 'c6-s1-l1',
+              title: 'Accessibilité sémantique (landmarks)',
+              content: content([
+                para('Les lecteurs d’écran utilisent les landmarks pour naviguer : <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;aside&gt;</code>, <code>&lt;footer&gt;</code>. Une hiérarchie de titres logique (<code>h1</code> → <code>h2</code> → <code>h3</code>) sans saut de niveau facilite la navigation. Les liens doivent être explicites (« En savoir plus » avec un contexte ou un <code>aria-label</code>).'),
+                code('<main>\n  <h1>Page</h1>\n  <nav aria-label="Navigation principale">...</nav>\n  <article>...</article>\n</main>', 'html'),
+              ]),
+              exercises: [
+                { type: 'qcm', question: 'Quelle balise sémantique représente le contenu principal de la page ?', options: ['<section>', '<main>', '<content>'], correctIndex: 1 },
+                { type: 'text', question: 'Quel attribut ARIA donne un libellé à une région pour les lecteurs d’écran ?', correctAnswer: 'aria-label' },
+              ],
+            },
+            {
+              id: 'c6-s1-l2',
+              title: 'ARIA : rôles, états et propriétés',
+              content: content([
+                para('ARIA (Accessible Rich Internet Applications) complète le HTML quand le natif ne suffit pas. Rôles : <code>role="button"</code>, <code>role="dialog"</code>, <code>role="alert"</code>. États : <code>aria-expanded</code>, <code>aria-pressed</code>, <code>aria-hidden</code>. Règle d’or : privilégier le HTML sémantique natif (<code>&lt;button&gt;</code>, <code>&lt;nav&gt;</code>) et n’utiliser ARIA que pour des widgets personnalisés sans équivalent natif.'),
+                code('<div role="button" tabindex="0" aria-pressed="false">Toggle</div>\n<div role="alert" aria-live="assertive">Message important</div>', 'html'),
+              ]),
+              exercises: [
+                { type: 'qcm', question: 'Quand doit-on utiliser ARIA ?', options: ['Toujours', 'Uniquement quand le HTML natif ne suffit pas', 'Jamais'], correctIndex: 1 },
+                { type: 'text', question: 'Quel attribut ARIA indique qu’un élément est développé ou replié ?', correctAnswer: 'aria-expanded' },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: '7',
+      title: 'SEO et métadonnées',
+      subChapters: [
+        {
+          id: '1',
+          title: 'Meta et Open Graph',
+          lessons: [
+            {
+              id: 'c7-s1-l1',
+              title: 'Meta description et balises titre',
+              content: content([
+                para('Le <code>&lt;title&gt;</code> apparaît dans l’onglet et les résultats de recherche ; il doit être unique et descriptif par page. <code>&lt;meta name="description" content="…"&gt;</code> est souvent utilisé pour l’extrait dans les SERP (environ 150–160 caractères). <code>&lt;meta name="robots" content="index, follow"&gt;</code> pour le référencement. Éviter le duplicate content et les titres vides.'),
+                code('<title>Formation HTML – Cours complet</title>\n<meta name="description" content="Apprenez le HTML de A à Z.">\n<meta name="robots" content="index, follow">', 'html'),
+              ]),
+              exercises: [
+                { type: 'qcm', question: 'Où la meta description est-elle le plus souvent affichée ?', options: ['Dans la page', 'Dans les résultats de recherche', 'Dans l’URL'], correctIndex: 1 },
+                { type: 'text', question: 'Quelle balise contient le titre affiché dans l’onglet du navigateur ?', correctAnswer: 'title' },
+              ],
+            },
+            {
+              id: 'c7-s1-l2',
+              title: 'Open Graph et partage social',
+              content: content([
+                para('Open Graph (Facebook, LinkedIn, etc.) : <code>&lt;meta property="og:title" content="…"&gt;</code>, <code>og:description</code>, <code>og:image</code>, <code>og:url</code>, <code>og:type</code>. Twitter Card : <code>&lt;meta name="twitter:card" content="summary_large_image"&gt;</code>, <code>twitter:title</code>, <code>twitter:description</code>, <code>twitter:image</code>. Ces métadonnées améliorent l’aperçu lors du partage sur les réseaux sociaux.'),
+                code('<meta property="og:title" content="Mon article">\n<meta property="og:description" content="Résumé">\n<meta property="og:image" content="https://…/image.jpg">\n<meta property="og:url" content="https://…">', 'html'),
+              ]),
+              exercises: [
+                { type: 'qcm', question: 'À quoi sert og:image ?', options: ['Image de fond', 'Image d’aperçu lors du partage', 'Favicon'], correctIndex: 1 },
+                { type: 'text', question: 'Quel préfixe de propriété meta est utilisé pour Open Graph ?', correctAnswer: 'og:' },
+              ],
+            },
           ],
         },
       ],

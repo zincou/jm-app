@@ -231,5 +231,71 @@ export const cssCourse = {
         },
       ],
     },
+    {
+      id: '4',
+      title: 'CSS avancé',
+      subChapters: [
+        {
+          id: '1',
+          title: 'Variables CSS et responsive',
+          lessons: [
+            {
+              id: 'c4-s1-l1',
+              title: 'Variables CSS (custom properties)',
+              content: content([
+                para('Les variables CSS (custom properties) se déclarent dans <code>:root</code> ou un sélecteur : <code>--couleur: #3498db;</code>. On les utilise avec <code>var(--couleur)</code>. On peut fournir une valeur de repli : <code>var(--couleur, blue)</code>. Elles sont héritées et peuvent être modifiées en JavaScript (<code>el.style.setProperty("--couleur", "red")</code>). Idéal pour les thèmes et les valeurs réutilisables.'),
+                code(':root {\n  --primary: #3498db;\n  --spacing: 1rem;\n}\n.button {\n  background: var(--primary);\n  padding: var(--spacing);\n}', 'css'),
+              ]),
+              exercises: [
+                { type: 'qcm', question: 'Comment déclare-t-on une variable CSS ?', options: ['$variable: value;', '--variable: value;', '@variable value;'], correctIndex: 1 },
+                { type: 'text', question: 'Quelle fonction CSS permet d’utiliser une variable personnalisée ?', correctAnswer: 'var' },
+              ],
+            },
+            {
+              id: 'c4-s1-l2',
+              title: 'Media queries et design responsive',
+              content: content([
+                para('Les media queries adaptent le style selon la largeur d’écran : <code>@media (min-width: 768px) { ... }</code>, <code>@media (max-width: 1024px) { ... }</code>. Approche mobile-first : styles de base pour mobile, puis <code>min-width</code> pour tablette et desktop. <code>@media (prefers-reduced-motion: reduce)</code> permet de réduire les animations pour l’accessibilité.'),
+                code('@media (min-width: 768px) {\n  .grid { grid-template-columns: 1fr 1fr; }\n}\n@media (max-width: 600px) {\n  .menu { flex-direction: column; }\n}', 'css'),
+              ]),
+              exercises: [
+                { type: 'qcm', question: 'Quelle approche recommande-t-on pour le responsive (base d’abord) ?', options: ['Desktop-first', 'Mobile-first', 'Tablette-first'], correctIndex: 1 },
+                { type: 'text', question: 'Quelle règle at-rule permet d’appliquer des styles selon la largeur d’écran ?', correctAnswer: '@media' },
+              ],
+            },
+          ],
+        },
+        {
+          id: '2',
+          title: 'Animations et transitions',
+          lessons: [
+            {
+              id: 'c4-s2-l1',
+              title: 'Transitions (transition)',
+              content: content([
+                para('Les transitions animent un changement de propriété : <code>transition: property duration timing-function delay;</code>. Exemple : <code>transition: background 0.3s ease;</code> ou <code>transition: all 0.3s;</code>. Propriétés courantes : <code>opacity</code>, <code>transform</code>, <code>color</code>, <code>background</code>. Privilégier <code>transform</code> et <code>opacity</code> pour de meilleures performances (GPU).'),
+                code('.bouton {\n  background: blue;\n  transition: background 0.3s ease, transform 0.2s;\n}\n.bouton:hover {\n  background: darkblue;\n  transform: scale(1.05);\n}', 'css'),
+              ]),
+              exercises: [
+                { type: 'qcm', question: 'Quelles propriétés sont les plus performantes pour les animations ?', options: ['width et height', 'transform et opacity', 'margin et padding'], correctIndex: 1 },
+                { type: 'text', question: 'Quelle propriété CSS définit la durée d’une transition ?', correctAnswer: 'transition' },
+              ],
+            },
+            {
+              id: 'c4-s2-l2',
+              title: '@keyframes et animation',
+              content: content([
+                para('Les keyframes définissent des étapes d’animation : <code>@keyframes nom { 0% { ... } 100% { ... } }</code>. On applique avec <code>animation: nom durée timing-function delay iteration-count;</code>. Exemple : <code>animation: fadeIn 0.5s ease 1;</code>. <code>animation-fill-mode: forwards</code> garde le dernier état. <code>animation-direction: alternate</code> alterne le sens.'),
+                code('@keyframes fadeIn {\n  from { opacity: 0; }\n  to { opacity: 1; }\n}\n.box {\n  animation: fadeIn 0.5s ease;\n}', 'css'),
+              ]),
+              exercises: [
+                { type: 'qcm', question: 'Quelle règle at-rule définit les étapes d’une animation ?', options: ['@animation', '@keyframes', '@frames'], correctIndex: 1 },
+                { type: 'text', question: 'Quelle propriété CSS applique une animation définie avec @keyframes ?', correctAnswer: 'animation' },
+              ],
+            },
+          ],
+        },
+      ],
+    },
   ],
 };
