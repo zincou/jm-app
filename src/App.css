@@ -1,38 +1,381 @@
+/* ============================================
+   Layout et composants — utilise les variables de index.css
+   ============================================ */
+
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+/* Layout imbriqué (nav + main) doit remplir l'espace */
+.App .App {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ----- Navigation ----- */
+.app-nav {
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-md) var(--space-xl);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: var(--shadow-sm);
+}
+
+.app-nav-inner {
+  max-width: var(--layout-max-width);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: var(--space-xl);
+}
+
+.app-nav a {
+  font-weight: 500;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.app-nav a:hover {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.app-nav .nav-brand {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  margin-right: auto;
+}
+
+/* ----- Contenu principal ----- */
+.app-main {
+  flex: 1;
+  padding: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+}
+
+.page {
+  max-width: var(--layout-max-width);
+  margin: 0 auto;
+}
+
+.page-content {
+  max-width: var(--content-max-width);
+}
+
+/* ----- Titres ----- */
+.page-title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  line-height: var(--line-height-tight);
+  color: var(--color-text);
+  margin: 0 0 var(--space-md);
+}
+
+.page-subtitle {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-muted);
+  margin: 0 0 var(--space-xl);
+  line-height: var(--line-height);
+}
+
+.section-title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  margin: var(--space-xl) 0 var(--space-md);
+  color: var(--color-text);
+}
+
+/* ----- Liens et boutons ----- */
+.btn {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  padding: var(--space-sm) var(--space-lg);
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  border-radius: var(--radius-md);
+  border: none;
+  transition: background 0.15s ease, transform 0.05s ease;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn-primary {
+  background: var(--color-accent);
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.btn-primary:hover {
+  background: var(--color-accent-hover);
+  color: white;
+  text-decoration: none;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.link-back {
+  display: inline-block;
+  margin-top: var(--space-lg);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.link-back:hover {
+  color: var(--color-accent);
+}
+
+/* ----- Cartes (accueil, liste des cours) ----- */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-lg);
+  margin-top: var(--space-xl);
+}
+
+.card {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-border-focus);
+}
+
+.card a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.card a:hover {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.card-title {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  margin: 0 0 var(--space-sm);
+}
+
+.card-desc {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin: 0;
+  line-height: var(--line-height);
+}
+
+/* ----- Cours : chapitres et leçons ----- */
+.chapter-block {
+  margin-bottom: var(--space-xl);
+}
+
+.chapter-title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0 0 var(--space-md);
+  padding-bottom: var(--space-xs);
+  border-bottom: 2px solid var(--color-accent);
+}
+
+.subchapter-block {
+  margin-left: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.subchapter-title {
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  margin: 0 0 var(--space-sm);
+}
+
+.lesson-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.lesson-list li {
+  margin-bottom: var(--space-xs);
+}
+
+.lesson-list a {
+  display: block;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+}
+
+.lesson-list a:hover {
+  background: var(--color-accent-light);
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+/* ----- Leçon : fil d'Ariane et contenu ----- */
+.breadcrumb {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-lg);
+}
+
+.breadcrumb a {
+  color: var(--color-text-muted);
+}
+
+.breadcrumb a:hover {
+  color: var(--color-accent);
+}
+
+.breadcrumb span {
+  margin: 0 var(--space-xs);
+}
+
+.lesson-content {
+  margin: var(--space-lg) 0;
+}
+
+.lesson-content p {
+  margin: 0 0 var(--space-md);
+  line-height: var(--line-height);
+}
+
+.lesson-content p:last-child {
+  margin-bottom: 0;
+}
+
+.code-block {
+  background: #2d2d2d;
+  color: #f8f8f2;
+  padding: var(--space-lg);
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+  margin: var(--space-md) 0;
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+}
+
+.code-block code {
+  background: none;
+  padding: 0;
+  color: inherit;
+}
+
+.lesson-footer {
+  margin-top: var(--space-2xl);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--color-border);
+  font-size: var(--font-size-sm);
+}
+
+.lesson-footer a {
+  margin-right: var(--space-md);
+}
+
+/* ----- Exercices ----- */
+.exercises-section {
+  margin-top: var(--space-2xl);
+  padding-top: var(--space-xl);
+  border-top: 1px solid var(--color-border);
+}
+
+.exercises-section h2 {
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  margin: 0 0 var(--space-lg);
+  color: var(--color-text);
+}
+
+.exercise-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.exercise-card p {
+  margin: 0 0 var(--space-md);
+  font-weight: 500;
+}
+
+.exercise-options {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--space-md);
+}
+
+.exercise-options li {
+  margin-bottom: var(--space-sm);
+}
+
+.exercise-options label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  cursor: pointer;
+}
+
+.exercise-options input[type="radio"] {
+  width: 1.1em;
+  height: 1.1em;
+  accent-color: var(--color-accent);
+}
+
+.exercise-input {
+  width: 100%;
+  max-width: 400px;
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  margin-right: var(--space-sm);
+  margin-bottom: var(--space-sm);
+}
+
+.exercise-input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 2px var(--color-accent-light);
+}
+
+.exercise-feedback {
+  font-weight: 600;
+  margin-top: var(--space-sm);
+}
+
+.exercise-feedback.correct {
+  color: var(--color-success);
+}
+
+.exercise-feedback.incorrect {
+  color: var(--color-error);
+}
+
+/* ----- États (erreur, vide) ----- */
+.empty-state {
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+.error-state {
+  padding: var(--space-lg);
+  background: var(--color-error-bg);
+  border-radius: var(--radius-md);
+  color: var(--color-error);
 }

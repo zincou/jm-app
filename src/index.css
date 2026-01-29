@@ -1,13 +1,110 @@
+/* ============================================
+   Charte graphique — variables à modifier pour changer le style
+   ============================================ */
+:root {
+  /* Couleurs principales */
+  --color-bg: #f8f9fa;
+  --color-surface: #ffffff;
+  --color-text: #1a1a1a;
+  --color-text-muted: #5c5c5c;
+  --color-border: #e2e4e8;
+  --color-border-focus: #6b7fd7;
+
+  /* Accent (liens, boutons, highlights) */
+  --color-accent: #4287f5;
+  --color-accent-hover: #1f4a8f;
+  --color-accent-light: #e8eaf6;
+
+  /* Feedback */
+  --color-success: #2e7d32;
+  --color-success-bg: #e8f5e9;
+  --color-error: #c62828;
+  --color-error-bg: #ffebee;
+
+  /* Typographie */
+  /* Texte courant : Open Sans, Titres : Roboto */
+  --font-sans: 'Open Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-heading: 'Roboto', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'Consolas', 'Monaco', 'Courier New', monospace;
+  --font-size-base: 1rem;
+  --font-size-sm: 0.875rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --line-height: 1.6;
+  --line-height-tight: 1.35;
+
+  /* Espacements */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 2.5rem;
+
+  /* Rayons et ombres */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.1);
+
+  /* Largeur de lecture confortable */
+  --content-max-width: 720px;
+  --layout-max-width: 1100px;
+}
+
+/* Base */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height);
+  color: var(--color-text);
+  background: var(--color-bg);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  padding: 0.15em 0.4em;
+  background: var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+pre code {
+  padding: 0;
+  background: none;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+a:hover {
+  color: var(--color-accent-hover);
+  text-decoration: underline;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  font-family: inherit;
+  font-size: inherit;
 }
