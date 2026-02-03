@@ -35,9 +35,11 @@ export const htmlCourse = {
               id: 'c1-s1-l2',
               title: 'Structure d\'une page',
               content: content([
-                para('Une page HTML valide commence par <code>&lt;!DOCTYPE html&gt;</code>, puis une balise <code>&lt;html&gt;</code> avec souvent l’attribut <code>lang</code> (ex. <code>lang="fr"</code>).'),
-                para('À l’intérieur : <code>&lt;head&gt;</code> (métadonnées, titre, liens vers CSS) et <code>&lt;body&gt;</code> (contenu visible). Le <code>&lt;head&gt;</code> contient aussi <code>&lt;meta charset="UTF-8"&gt;</code> pour l’encodage des caractères.'),
-                code('<head>\n  <meta charset="UTF-8">\n  <meta name="viewport" content="width=device-width">\n  <title>Mon site</title>\n</head>', 'html'),
+                para('Une page HTML valide commence par <code>&lt;!DOCTYPE html&gt;</code>, qui indique au navigateur que l’on utilise HTML5. Vient ensuite la balise racine <code>&lt;html&gt;</code> avec en général un attribut <code>lang</code> (ex. <code>lang="fr"</code>) pour préciser la langue du document, utile pour l’accessibilité et le référencement.'),
+                para('L’élément <code>&lt;head&gt;</code> regroupe toutes les métadonnées qui ne s’affichent pas directement dans la page : <code>&lt;title&gt;</code>, <code>&lt;meta&gt;</code>, liens vers les feuilles de style, polices, scripts chargés de manière non bloquante, etc. C’est aussi là qu’on déclare l’encodage (<code>&lt;meta charset="UTF-8"&gt;</code>) et la fameuse meta viewport pour le responsive.'),
+                code('<!DOCTYPE html>\n<html lang="fr">\n  <head>\n    <meta charset="UTF-8" />\n    <meta name="viewport" content="width=device-width, initial-scale=1" />\n    <title>Mon site</title>\n  </head>\n  <body>\n    <!-- Contenu visible -->\n  </body>\n</html>', 'html'),
+                para('Le <code>&lt;body&gt;</code> contient tout ce qui doit être visible ou accessible à l’utilisateur : titres, paragraphes, navigation, formulaires, etc. Dans un site moderne, on y structure le contenu avec des sections sémantiques (<code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;aside&gt;</code>, <code>&lt;footer&gt;</code>) plutôt qu’avec une succession de <code>&lt;div&gt;</code> anonymes.'),
+                para('On peut voir cette structure comme un “squelette” : le doctype et <code>&lt;html&gt;</code> définissent le type de document, <code>&lt;head&gt;</code> décrit la page pour les navigateurs, moteurs de recherche et lecteurs d’écran, <code>&lt;body&gt;</code> décrit le contenu pour l’utilisateur. Comprendre ce squelette est crucial avant même de parler de CSS ou de JavaScript.'),
               ]),
               exercises: [
                 { type: 'qcm', question: 'Où place-t-on le titre de la page ?', options: ['Dans <body>', 'Dans <head>', 'Après </html>'], correctIndex: 1 },
@@ -131,12 +133,55 @@ export const htmlCourse = {
               id: 'c3-s1-l2',
               title: 'Les images (img)',
               content: content([
-                para('Image : <code>&lt;img src="chemin/image.jpg" alt="Description"&gt;</code>. La balise est orpheline (pas de contenu). L’attribut <code>alt</code> est obligatoire : il décrit l’image pour l’accessibilité et s’affiche si l’image ne charge pas.'),
-                code('<img src="photo.jpg" alt="Photo de paysage">', 'html'),
+                para('Image de base : <code>&lt;img src="chemin/image.jpg" alt="Description"&gt;</code>. La balise est orpheline (pas de contenu enfant). L’attribut <code>alt</code> est obligatoire : il décrit l’image pour les technologies d’assistance et sert de texte de remplacement si l’image ne peut pas être chargée. La description doit être concise mais significative (“Photo de paysage au bord de mer”).'),
+                para('Pour les performances, on évite les images énormes affichées en petit. En responsive, on préfère proposer plusieurs versions adaptées à la taille de l’écran. C’est là qu’intervient la syntaxe d’images responsives : <code>srcset</code>, <code>sizes</code> et la balise <code>&lt;picture&gt;</code> pour les cas avancés.'),
+                code(
+                  `<img
+  src="image-800.jpg"
+  srcset="image-400.jpg 400w, image-800.jpg 800w, image-1200.jpg 1200w"
+  sizes="(max-width: 600px) 100vw, 600px"
+  alt="Portrait d'un développeur concentré devant son écran"
+/>`,
+                  'html'
+                ),
+                para('Ici, le navigateur choisit automatiquement la ressource la plus adaptée en fonction de la largeur d’écran et de la densité de pixels. <code>sizes</code> décrit l’espace réel que prendra l’image dans la mise en page (par exemple “100vw” sur mobile). C’est une fonctionnalité clé pour rendre un site rapide et agréable sur mobile comme sur grand écran.'),
+                para('Pour des cas plus complexes (formats différents selon le navigateur, art direction), on peut utiliser <code>&lt;picture&gt;</code> avec plusieurs <code>&lt;source&gt;</code> et une balise <code>&lt;img&gt;</code> de repli.'),
               ]),
               exercises: [
                 { type: 'qcm', question: 'L’attribut alt sur une image sert à :', options: ['Définir la taille', 'Décrire l’image (accessibilité)', 'Changer la couleur'], correctIndex: 1 },
                 { type: 'text', question: 'Quel attribut indique le fichier source d’une image ?', correctAnswer: 'src' },
+              ],
+            },
+            {
+              id: 'c3-s1-l3',
+              title: 'Images responsives avancées avec picture',
+              content: content([
+                para('La balise <code>&lt;picture&gt;</code> permet de contrôler plus finement quelle image sera chargée selon le contexte : largeur d’écran, densité de pixels, mais aussi format supporté (ex. WebP, AVIF) ou “art direction” (montrer un cadrage différent sur mobile et desktop). On définit plusieurs <code>&lt;source&gt;</code> avec des media queries ou des formats différents, puis une balise <code>&lt;img&gt;</code> de repli.'),
+                code(
+                  `<picture>
+  <source
+    srcset="image-portrait.avif 1x, image-portrait@2x.avif 2x"
+    type="image/avif"
+    media="(max-width: 600px)"
+  />
+  <source
+    srcset="image-paysage.webp 1x, image-paysage@2x.webp 2x"
+    type="image/webp"
+  />
+  <img
+    src="image-paysage.jpg"
+    alt="Illustration d'une interface web sur différents écrans"
+    loading="lazy"
+  />
+</picture>`,
+                  'html'
+                ),
+                para('Dans cet exemple, on fournit une version “portrait” optimisée pour les petits écrans via une media query, et une version “paysage” pour les écrans plus larges. On propose aussi des formats modernes (AVIF, WebP) avec un fallback JPEG dans <code>&lt;img&gt;</code>. Le navigateur choisit la meilleure option qu’il sait afficher.'),
+                para('Côté performance, l’objectif est de charger <em>l’image la plus légère suffisante</em> pour le contexte de l’utilisateur. Combiner <code>srcset</code>/<code>sizes</code>, <code>&lt;picture&gt;</code>, le lazy‑loading (<code>loading=\"lazy\"</code>) et une bonne optimisation des fichiers (compression, dimensions réelles adaptées) est essentiel pour un site de formation agréable à utiliser sur mobile comme sur ordinateur.'),
+              ]),
+              exercises: [
+                { type: 'qcm', question: 'À quoi sert principalement la balise <picture> ?', options: ['Remplacer <img>', 'Proposer plusieurs sources d’image selon le contexte', 'Créer une galerie d’images'], correctIndex: 1 },
+                { type: 'text', question: 'Quel attribut sur <img> permet de différer le chargement des images hors écran ?', correctAnswer: 'loading' },
               ],
             },
           ],
@@ -155,8 +200,10 @@ export const htmlCourse = {
               id: 'c4-s1-l1',
               title: 'Header, nav, main, footer',
               content: content([
-                para('HTML5 introduit des balises sémantiques : <code>&lt;header&gt;</code> (en-tête), <code>&lt;nav&gt;</code> (navigation), <code>&lt;main&gt;</code> (contenu principal, un seul par page), <code>&lt;section&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;footer&gt;</code>. Elles donnent du sens au document et améliorent l’accessibilité et le référencement.'),
-                code('<header><h1>Mon site</h1></header>\n<nav>...</nav>\n<main>\n  <article>...</article>\n</main>\n<footer>© 2025</footer>', 'html'),
+                para('HTML5 introduit des balises sémantiques qui remplacent beaucoup de <code>&lt;div&gt;</code> anonymes. <code>&lt;header&gt;</code> sert pour l’en-tête d’une page ou d’une section (logo, titre, actions), <code>&lt;nav&gt;</code> regroupe les liens de navigation, <code>&lt;main&gt;</code> représente le contenu principal (en général une seule fois par page), et <code>&lt;footer&gt;</code> contient les informations de pied de page (mentions, liens secondaires, etc.).'),
+                para('<code>&lt;section&gt;</code> désigne une partie thématique du document (un bloc de contenu avec un titre), tandis que <code>&lt;article&gt;</code> représente un contenu autonome pouvant être réutilisé ou syndiqué (article de blog, fiche produit, commentaire important). On utilise <code>&lt;aside&gt;</code> pour les contenus connexes : encadrés, blocs “à lire aussi”, barres latérales.'),
+                code('<header>\n  <h1>Mon site</h1>\n</header>\n<nav aria-label=\"Navigation principale\">\n  <!-- menu principal -->\n</nav>\n<main>\n  <article>\n    <h2>Article principal</h2>\n    <p>Contenu…</p>\n  </article>\n  <aside>\n    <h2>Ressources utiles</h2>\n    <ul>...</ul>\n  </aside>\n</main>\n<footer>© 2025</footer>', 'html'),
+                para('En combinant ces éléments, on améliore la lisibilité du code, l’accessibilité (les lecteurs d’écran peuvent “sauter” d’une zone à l’autre) et le SEO (les moteurs de recherche comprennent mieux la structure du contenu). Une bonne pratique est de toujours se demander : “Est-ce que cette section a un titre et un sens autonome ?” avant de choisir entre <code>&lt;div&gt;</code>, <code>&lt;section&gt;</code> et <code>&lt;article&gt;</code>.'),
               ]),
               exercises: [
                 { type: 'qcm', question: 'Combien de balise <main> doit-il y avoir par page ?', options: ['Autant qu’on veut', 'Une seule', 'Deux'], correctIndex: 1 },
@@ -179,8 +226,10 @@ export const htmlCourse = {
               id: 'c5-s1-l1',
               title: 'Form, input, label',
               content: content([
-                para('Un formulaire : <code>&lt;form action="url" method="get|post"&gt;</code>. Chaque champ est associé à un <code>&lt;label&gt;</code> (attribut <code>for</code> = <code>id</code> du champ). Inputs courants : <code>type="text"</code>, <code>type="email"</code>, <code>type="password"</code>, <code>type="submit"</code>.'),
-                code('<form>\n  <label for="nom">Nom</label>\n  <input type="text" id="nom" name="nom">\n  <button type="submit">Envoyer</button>\n</form>', 'html'),
+                para('Un formulaire se déclare avec <code>&lt;form action="URL" method="get|post"&gt;</code>. L’attribut <code>action</code> indique où les données seront envoyées, <code>method</code> comment elles le seront (GET dans l’URL, POST dans le corps de la requête). Même si, en pratique, beaucoup d’applications modernes utilisent du JavaScript et des APIs, il est important de comprendre ce modèle de base.'),
+                para('Chaque champ doit être associé à un <code>&lt;label&gt;</code> décrivant son contenu. On relie les deux avec <code>for</code> (sur le label) et <code>id</code> (sur le champ). Cela améliore l’accessibilité : cliquer sur le label place le focus dans le champ et les lecteurs d’écran lisent le bon intitulé. Inputs courants : <code>type="text"</code>, <code>type="email"</code>, <code>type="password"</code>, <code>type="number"</code>, <code>type="submit"</code>.'),
+                para('On peut également utiliser l’attribut <code>autocomplete</code> pour indiquer au navigateur le type de donnée attendu (<code>name</code>, <code>email</code>, <code>street-address</code>, etc.), ce qui améliore l’UX en proposant un remplissage automatique cohérent.'),
+                code('<form action="/inscription" method="post">\n  <label for="nom">Nom</label>\n  <input type="text" id="nom" name="nom" autocomplete="name" required>\n\n  <label for="email">Email</label>\n  <input type="email" id="email" name="email" autocomplete="email" required>\n\n  <button type="submit">Envoyer</button>\n</form>', 'html'),
               ]),
               exercises: [
                 { type: 'qcm', question: 'Quelle balise associe un libellé à un champ de formulaire ?', options: ['<legend>', '<label>', '<caption>'], correctIndex: 1 },
@@ -191,8 +240,11 @@ export const htmlCourse = {
               id: 'c5-s1-l2',
               title: 'Textarea, select et validation HTML5',
               content: content([
-                para('<code>&lt;textarea id="msg" name="msg" rows="4"&gt;&lt;/textarea&gt;</code> pour du texte multiligne. <code>&lt;select name="ville"&gt;</code> avec <code>&lt;option value="paris"&gt;Paris&lt;/option&gt;</code>. Validation native : <code>required</code>, <code>minlength</code>, <code>maxlength</code>, <code>pattern</code>, <code>type="email"</code>, <code>min</code>/<code>max</code> pour les nombres. L’attribut <code>novalidate</code> sur le form désactive la validation pour gérer en JS.'),
-                code('<textarea id="msg" name="msg" required minlength="10"></textarea>\n<select name="ville">\n  <option value="">Choisir</option>\n  <option value="paris">Paris</option>\n</select>\n<input type="email" required>', 'html'),
+                para('<code>&lt;textarea&gt;</code> permet de saisir du texte multiligne : on contrôle sa taille avec des attributs comme <code>rows</code> et <code>cols</code>, mais en pratique on stylise plutôt la zone en CSS. <code>&lt;select&gt;</code> crée une liste déroulante, avec des <code>&lt;option&gt;</code>. On peut grouper les options avec <code>&lt;optgroup&gt;</code> pour améliorer la lisibilité de longs menus.'),
+                code('<label for=\"msg\">Message</label>\n<textarea id=\"msg\" name=\"msg\" rows=\"4\" required></textarea>\n\n<label for=\"ville\">Ville</label>\n<select id=\"ville\" name=\"ville\" required>\n  <option value=\"\">Choisir</option>\n  <option value=\"paris\">Paris</option>\n  <option value=\"lyon\">Lyon</option>\n</select>', 'html'),
+                para('HTML5 fournit une validation native très puissante : attributs <code>required</code>, <code>minlength</code>, <code>maxlength</code>, <code>pattern</code> (expression régulière), ainsi que des types spécialisés (<code>email</code>, <code>url</code>, <code>number</code>, etc.). Le navigateur peut afficher des messages d’erreur automatiques, que l’on peut personnaliser côté JavaScript avec l’API de validation de contraintes. L’attribut <code>novalidate</code> sur <code>&lt;form&gt;</code> désactive cette validation si l’on préfère tout gérer soi‑même.'),
+                code('<form novalidate>\n  <label for=\"site\">Site web</label>\n  <input id=\"site\" name=\"site\" type=\"url\" pattern=\"https?://.*\" required>\n</form>', 'html'),
+                para('Pour des formulaires réellement accessibles, il faut également penser aux messages d’erreur (liés aux champs), à l’ordre de tabulation (navigation clavier) et aux attributs ARIA lorsque le HTML seul ne suffit pas (<code>aria-invalid</code>, <code>aria-describedby</code> pour lier un champ à un message explicatif, etc.).'),
               ]),
               exercises: [
                 { type: 'qcm', question: 'Quel attribut rend un champ obligatoire en HTML5 ?', options: ['mandatory', 'required', 'validate'], correctIndex: 1 },

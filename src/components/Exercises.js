@@ -70,13 +70,33 @@ function ExerciseBlock({ exercise, index }) {
 }
 
 export default function Exercises({ exercises }) {
+  const [isOpen, setIsOpen] = useState(false);
+
   if (!exercises || exercises.length === 0) return null;
+
   return (
     <section className="exercises-section">
-      <h2>Exercices</h2>
-      {exercises.map((ex, i) => (
-        <ExerciseBlock key={i} exercise={ex} index={i} />
-      ))}
+      <button
+        type="button"
+        className="exercises-toggle"
+        onClick={() => setIsOpen((prev) => !prev)}
+        aria-expanded={isOpen}
+        aria-controls="exercises-content"
+        id="exercises-heading"
+      >
+        <span className="exercises-toggle-icon" aria-hidden>{isOpen ? '▼' : '▶'}</span>
+        <span>Questions de révision ({exercises.length})</span>
+      </button>
+      <div
+        id="exercises-content"
+        role="region"
+        aria-labelledby="exercises-heading"
+        className={`exercises-content ${isOpen ? 'exercises-content--open' : ''}`}
+      >
+        {isOpen && exercises.map((ex, i) => (
+          <ExerciseBlock key={i} exercise={ex} index={i} />
+        ))}
+      </div>
     </section>
   );
 }

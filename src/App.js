@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import CourseList from './pages/CourseList';
 import Course from './pages/Course';
 import Lesson from './pages/Lesson';
+import Workshops from './pages/Workshops';
 import './App.css';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
           <Route path="cours" element={<CourseList />} />
           <Route path="cours/:courseId" element={<Course />} />
           <Route path="cours/:courseId/lecon/:lessonId" element={<Lesson />} />
+          <Route path="ateliers" element={<Workshops />} />
         </Route>
       </Routes>
     </div>

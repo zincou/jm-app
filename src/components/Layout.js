@@ -8,6 +8,7 @@ function Layout() {
           <Link to="/" className="nav-brand">Formation front-end</Link>
           <Link to="/">Accueil</Link>
           <Link to="/cours">Cours</Link>
+          <Link to="/ateliers">Ateliers</Link>
         </div>
       </nav>
       <main className="app-main">

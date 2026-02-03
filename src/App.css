@@ -294,11 +294,40 @@
   border-top: 1px solid var(--color-border);
 }
 
-.exercises-section h2 {
-  font-size: var(--font-size-xl);
+.exercises-toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  width: 100%;
+  padding: var(--space-md) 0;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
   font-weight: 600;
-  margin: 0 0 var(--space-lg);
   color: var(--color-text);
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.exercises-toggle:hover {
+  color: var(--color-accent);
+}
+
+.exercises-toggle-icon {
+  display: inline-block;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  transition: transform 0.2s ease;
+}
+
+.exercises-content {
+  margin-top: var(--space-md);
+}
+
+.exercises-content--open {
+  margin-bottom: var(--space-md);
 }
 
 .exercise-card {
@@ -377,5 +406,71 @@
   padding: var(--space-lg);
   background: var(--color-error-bg);
   border-radius: var(--radius-md);
+  color: var(--color-error);
+}
+
+/* ----- Ateliers (Workshops) ----- */
+.workshop-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: var(--space-xl);
+  margin-top: var(--space-xl);
+}
+
+@media (max-width: 900px) {
+  .workshop-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.workshop-textarea {
+  width: 100%;
+  min-height: 320px;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  line-height: 1.4;
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  resize: vertical;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: var(--space-md);
+}
+
+.workshop-textarea:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 2px var(--color-accent-light);
+}
+
+.workshop-checklist {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.workshop-checklist li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) 0;
+  border-bottom: 1px solid var(--color-border);
+  font-size: var(--font-size-sm);
+}
+
+.workshop-checklist li:last-child {
+  border-bottom: none;
+}
+
+.check-icon {
+  width: 1.5rem;
+  text-align: center;
+}
+
+.check-ok .check-icon {
+  color: var(--color-success);
+}
+
+.check-ko .check-icon {
   color: var(--color-error);
 }
